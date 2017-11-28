@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>First Pure React</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+	<style>
+		
+		#container, #container2 {
+			padding: 50px;
+			background-color: #EEE;
+		}
+
+		#container h1, #container2 h1 {
+			font-family: sans-serif;
+			font-size: 48px;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div>React.createClass is deprecated from version 16.0 and is moved to a separate package 'create-react-class'; create a component by extending React.Component</div>
+	<div id="container"></div>
+	<div id="container2"></div>
+	<div id="content"></div>
+
+	<!-- <script type="text/babel"> -->
+	<script type="text/jsx">
+		let destination = document.querySelector("#container");
+		let element = React.createElement("h1", null, "Superman");
+		ReactDOM.render(element, destination);
+
+		let destination2 = document.querySelector("#container2");
+		ReactDOM.render(
+			<h1>Hello First App</h1>,
+			destination2
+		);
+
+		let DATA = {
+			name: 'Liang Xin',
+			imgURL: 'http://lorempixel.com/100/100',
+			hobbyList: ['coding', 'writing', 'surfing'],
+		};
+
+
+		class App extends React.Component {
+			render() {
+				return (
+					<div>
+						<Profile
+							name={this.props.data.name}
+							imgURL={this.props.data.imgURL}
+						/>
+
+						<Hobbies
+							hobbies={this.props.data.hobbyList}
+						/>
+					</div>
+				);
+			}
+		}
+
+		class Profile extends React.Component {
+			render() {
+				return (
+					<div>
+						<h3>
+							{ this.props.name }
+						</h3>
+						<img src={this.props.imgURL} />
+					</div>
+				);
+			}
+		}
+
+		class Hobbies extends React.Component {
+			render() {
+				let hobbies = this.props.hobbies; 
+				return (
+					<div>
+						<h5>My hobbies</h5>
+						<ul>
+							{
+								hobbies.map((hobby, key) =>
+									<li key={key}>
+										{ hobby }
+									</li>
+								)
+							}
+						</ul>
+					</div>
+				);
+			}
+		}
+
+		ReactDOM.render(
+			<App data={DATA} />,
+			document.querySelector("#content")
+		);
+
+	</script>
+</body>
+</html>
